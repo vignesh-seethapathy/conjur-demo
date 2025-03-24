@@ -18,22 +18,22 @@ jobs:
         with:
           audience: '${{ github.server_url }}/${{ github.repository_owner }}'
           
-      # - name: Import Secrets using CyberArk Conjur Secret Fetcher Action
-      #   uses: vignesh-seethapathy/conjur-action@master
-      #   with:
-      #     url: ${{ vars.CONJUR_URL }}
-      #     account: ${{ vars.CONJUR_ACCOUNT }}
-      #     authn_id: github
-      #     # certificate: ${{ secrets.SSL_CERTIFICATE }}
-      #     secrets: database/db_username|DB_USERNAME;database/db_password|DB_PASSWORD
+      - name: Import Secrets using CyberArk Conjur Secret Fetcher Action
+        uses: vignesh-seethapathy/conjur-action@master
+        with:
+          url: ${{ vars.CONJUR_URL }}
+          account: ${{ vars.CONJUR_ACCOUNT }}
+          authn_id: github
+          # certificate: ${{ secrets.SSL_CERTIFICATE }}
+          secrets: database/db_username|DB_USERNAME;database/db_password|DB_PASSWORD
 
-      # - name: Set secret values to env 
-      #   run: |
-      #     echo "userid=$DB_USERNAME" > env_vars.txt
-      #     echo "pwd=$DB_PASSWORD" >> env_vars.txt            
+      - name: Set secret values to env 
+        run: |
+          echo "userid=$DB_USERNAME" > env_vars.txt
+          echo "pwd=$DB_PASSWORD" >> env_vars.txt            
           
-      # - name: Upload env file as an artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: env-vars
-      #     path: env_vars.txt   
+      - name: Upload env file as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: env-vars
+          path: env_vars.txt   
