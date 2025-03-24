@@ -1,0 +1,39 @@
+name: githubjwt
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: self-hosted
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Debug OIDC Claims
+        uses: github/actions-oidc-debugger@main
+        with:
+          audience: '${{ github.server_url }}/${{ github.repository_owner }}'
+          
+      # - name: Import Secrets using CyberArk Conjur Secret Fetcher Action
+      #   uses: vignesh-seethapathy/conjur-action@master
+      #   with:
+      #     url: ${{ vars.CONJUR_URL }}
+      #     account: ${{ vars.CONJUR_ACCOUNT }}
+      #     authn_id: github
+      #     # certificate: ${{ secrets.SSL_CERTIFICATE }}
+      #     secrets: database/db_username|DB_USERNAME;database/db_password|DB_PASSWORD
+
+      # - name: Set secret values to env 
+      #   run: |
+      #     echo "userid=$DB_USERNAME" > env_vars.txt
+      #     echo "pwd=$DB_PASSWORD" >> env_vars.txt            
+          
+      # - name: Upload env file as an artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: env-vars
+      #     path: env_vars.txt   
